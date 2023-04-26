@@ -1,4 +1,4 @@
-from flask import Flask,g
+from flask import Flask,g, jsonify
 import psycopg2
 
 app = Flask(__name__)
@@ -37,3 +37,20 @@ def home():
     <p>Esta es una API que contiene {num_libros} libros.</p>"""
     
     return home_display
+
+# Ejecutar la aplicación
+if __name__ == '__main__':
+    app.run(debug = True)
+    
+# 1.Ruta para obtener todos los libros 
+
+@app.route('/books', methods = ['GET'])
+def get_bookks():
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM books_table")
+    totalRows = cursor.fetchall()
+    
+    cursor.close()
+    
+    return jsonify(bookks)
