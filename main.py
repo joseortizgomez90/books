@@ -45,12 +45,12 @@ if __name__ == '__main__':
 # 1.Ruta para obtener todos los libros 
 
 @app.route('/books', methods = ['GET'])
-def get_bookks():
+def get_books():
     conn = get_db()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM books_table")
-    totalRows = cursor.fetchall()
+    books = cursor.fetchall()
     
     cursor.close()
     
-    return jsonify(bookks)
+    return jsonify(books)
